@@ -1,0 +1,27 @@
+name:                debug-trace-var
+version:             0.1.0
+github:              ncaq/debug-trace-var
+license:             MIT
+author:              ncaq
+maintainer:          ncaq@ncaq.net
+copyright:           © ncaq
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+synopsis:            You do not have to write variable names twice in Debug.Trace
+category:            Debug
+
+description:         Please see the README on GitHub at <https://github.com/ncaq/debug-trace-var#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- template-haskell
+- unicode-show
+
+library:
+  source-dirs: src
+  ghc-options:
+  - -Wall
+  - -fwarn-tabs
