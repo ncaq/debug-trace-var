@@ -34,7 +34,4 @@ traceVarBase traceFuncEQ = QuasiQuoter
 traceFormat :: String -> Q Exp
 traceFormat str = do
   valueName <- fromMaybe (error $ "variable " ++ str ++ " is not found") <$> lookupValueName str
-  concatE <- [|concat|]
-  ushowE <- [|ushow|]
-  return $ AppE concatE $
-    ListE [LitE (StringL str), LitE (StringL " = "), AppE ushowE (VarE valueName)]
+  [| concat [$(stringE str), " = ", ushow $(varE valueName)] |]
