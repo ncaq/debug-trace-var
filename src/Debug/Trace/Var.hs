@@ -1,12 +1,18 @@
 {-# LANGUAGE QuasiQuotes     #-}
 {-# LANGUAGE TemplateHaskell #-}
-module Debug.Trace.Var (traceVar, traceVarId, traceStackVar, traceVarIO, traceVarM) where
+module Debug.Trace.Var (traceMTH, traceVar, traceVarId, traceStackVar, traceVarIO, traceVarM) where
 
 import           Data.Maybe
 import           Debug.Trace
 import           Language.Haskell.TH
 import           Language.Haskell.TH.Quote
 import           Text.Show.Unicode
+
+
+traceMTH :: Name -> Q Exp
+traceMTH name = do
+  let varName = nameBase name
+  [| traceM $ $(stringE varName) ++ $(stringE " = ") ++ ushow $(varE name) |]
 
 traceVar :: QuasiQuoter
 traceVar = traceVarBase [|trace|]
