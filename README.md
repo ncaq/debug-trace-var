@@ -28,10 +28,25 @@ main = do
   [traceVarIO|a|]
 ~~~
 
+or
+
+~~~hs
+{-# LANGUAGE TemplateHaskell #-}
+import           Debug.Trace.Var
+
+main :: IO ()
+main = let a = 1 :: Int
+       in $(traceMTH 'a)
+~~~
+
+You may avoid name quotes that are confusing with character literals,
+Or often it may be to avoid the QuasiQuotes to destroy the syntax highlight of the text editor.
+
 # Example
 
 ~~~hs
-{-# LANGUAGE QuasiQuotes #-}
+{-# LANGUAGE QuasiQuotes     #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 import           Debug.Trace.Var
 
@@ -71,6 +86,12 @@ e :: IO ()
 e = do
   let n = 344
   [traceVarM|n|]
+
+-- > f
+-- n = 344
+f :: IO ()
+f = let n = 344
+    in $(traceMTH 'n)
 ~~~
 
 # Motivation
